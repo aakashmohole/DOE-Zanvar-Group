@@ -1,0 +1,13 @@
+{
+    "email": "user@example.com",
+    "first_name": "John",
+    "last_name": "Doe",
+    "password": "yourpassword"
+}
+
+{
+    "email": "test@example.com",
+    "first_name": "John",
+    "last_name": "Doe",
+    "password": "Test@123"
+}

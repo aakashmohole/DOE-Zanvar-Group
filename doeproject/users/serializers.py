@@ -7,38 +7,33 @@ User = get_user_model()
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', 'username', 'first_name', 'last_name']
+        fields = ['id', 'email', 'first_name', 'last_name']
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, min_length=6)
-    
+
     class Meta:
         model = User
-        fields = ['email', 'username', 'first_name', 'last_name', 'password']
-    
+        fields = ['email', 'first_name', 'last_name', 'password']
+
     def create(self, validated_data):
-        user = User.objects.create_user(
-            email=validated_data['email'],
-            username=validated_data['username'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-            password=validated_data['password']
-        )
-        return user
-    
+        return User.objects.create_user(**validated_data)
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
 
     def validate(self, data):
-        user = authenticate(email=data['email'], password=data['password'])
-        if not user:
-            raise serializers.ValidationError('Invalid email or password')
+        email = data.get("email")
+        password = data.get("password")
 
-        # Generate JWT tokens
+        user = authenticate(username=email, password=password)  # Use Django's authenticate
+
+        if user is None:
+            raise serializers.ValidationError("Invalid email or password")
+
         refresh = RefreshToken.for_user(user)
         return {
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-            'user': UserSerializer(user).data
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+            "user": UserSerializer(user).data
         }
