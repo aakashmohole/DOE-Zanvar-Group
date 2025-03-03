@@ -4,14 +4,10 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
-from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
+from .serializers import RegisterSerializer, LoginSerializer, UserSerializer, PasswordResetSerializer, PasswordResetConfirmSerializer
 from .models import CustomUser
+
 from rest_framework.generics import GenericAPIView
-from .serializers import PasswordResetSerializer, PasswordResetConfirmSerializer
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from django.utils.encoding import force_str
-from django.utils.http import urlsafe_base64_decode
-from django.contrib.auth import get_user_model
 
 
 # Register User
@@ -26,10 +22,8 @@ class RegisterView(generics.CreateAPIView):
         serializer.save()
         return Response({"message": "User registered successfully"}, status=status.HTTP_201_CREATED)
 
-
-
 # Get User Profile
-class UserProfileView(APIView):
+class UserProfileView(GenericAPIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -38,7 +32,6 @@ class UserProfileView(APIView):
 
 
 # Logout User
-from rest_framework.permissions import AllowAny
 
 class LoginView(GenericAPIView):
     serializer_class = LoginSerializer
@@ -50,7 +43,7 @@ class LoginView(GenericAPIView):
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
-class LogoutView(APIView):
+class LogoutView(GenericAPIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
@@ -64,14 +57,14 @@ class LogoutView(APIView):
         
 
 #Password reset
-class RequestPasswordResetView(APIView):
+class RequestPasswordResetView(GenericAPIView):
     def post(self, request):
         serializer = PasswordResetSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
-class PasswordResetConfirmView(APIView):
+class PasswordResetConfirmView(GenericAPIView):
     def post(self, request, uidb64, token):
         data = request.data
         data['uidb64'] = uidb64
@@ -79,3 +72,4 @@ class PasswordResetConfirmView(APIView):
         serializer = PasswordResetConfirmSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
+    

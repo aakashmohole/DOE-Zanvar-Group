@@ -1,3 +1,62 @@
 from django.db import models
 
-# Create your models here.
+class DoeData(models.Model):
+    DOE_Serial_Number = models.AutoField(primary_key=True)  # Primary Key
+    # Tool_Diameter  = models.CharField(max_length=255)  # Storing as string format
+    DOE_Serial_Number = models.IntegerField(primary_key=True)
+    Belt_Name = models.CharField(max_length=255)
+    Machining_Unit = models.CharField(max_length=255)
+    Wave = models.CharField(max_length=255)
+    GB_YB = models.CharField(max_length=255, db_column="GB/YB")
+    Part_Name = models.CharField(max_length=255)
+    Part_No = models.CharField(max_length=255)
+    Customer = models.CharField(max_length=255)
+    Part_Material_Grade_CI_SGI = models.CharField(max_length=255, db_column="Part_Material_Grade_CI/SGI")
+    Part_Hardness_in_BHN = models.CharField(max_length=255)
+    Operation_Description = models.CharField(max_length=255)
+    Tool_Category = models.CharField(max_length=255)
+    Tool_Holding_Type_Description = models.CharField(max_length=255, db_column="Tool_Holding_Type_Discription_(GPL)")
+    Tool_Insert_Description = models.CharField(max_length=255, db_column="Tool/Insert_Description")
+    Tool_Diameter = models.CharField(max_length=255)
+    Tool_Approach_Angle = models.CharField(max_length=255, db_column="Tool_Approach_Angle_45°/90°")
+    Depth_Of_Cut_AP = models.CharField(max_length=255, db_column="Depth_Of_Cut_(AP)")
+    Tool_Material_Grade = models.CharField(max_length=255, db_column="Tool_Material/Grade")
+    Machine_Type = models.CharField(max_length=255)
+    Machine_Make = models.CharField(max_length=255)
+    Spindle_Taper = models.CharField(max_length=255, db_column="Spindle_Taper_BT40/BT50")
+    Coolant_Cutting_Type = models.CharField(max_length=255, db_column="Dry/With_Thru_Coolant_Cutting/Non_Thru_Coolant")
+    Speed_In_Vc = models.CharField(max_length=255)
+    Feed_In_mm_tooth = models.CharField(max_length=255, db_column="feed_in_mm/tooth")
+    Depth_of_Cut_In_mm = models.CharField(max_length=255)
+    Tool_Type = models.CharField(max_length=255)
+    Tool_Path = models.CharField(max_length=255)
+    No_Of_Passes = models.CharField(max_length=255)
+    Speed_Vc_Factor_1_Low = models.CharField(max_length=255, db_column="Speed_In_Vc-Factor_1_Low_Level")
+    Speed_Vc_Factor_1_High = models.CharField(max_length=255, db_column="Speed_In_Vc-Factor_1_High_Level")
+    Feed_Factor_2_Low = models.CharField(max_length=255, db_column="Feed-Factor_2_Low_Level")
+    Feed_Factor_2_High = models.CharField(max_length=255, db_column="Feed-Factor_2_High_Level")
+    Factor_3_Low = models.CharField(max_length=255, db_column="Factor_3_Low_Level")
+    Factor_3_High = models.CharField(max_length=255, db_column="Factor_3_High_Level")
+    Factor_4_Low = models.CharField(max_length=255, db_column="Factor_4_Low_Level")
+    Factor_4_High = models.CharField(max_length=255, db_column="Factor_4_High_Level")
+    Factor_5_Low = models.CharField(max_length=255, db_column="Factor_5_Low_Level")
+    Factor_5_High = models.CharField(max_length=255, db_column="Factor_5_High_Level")
+    Factor_6_Low = models.CharField(max_length=255, db_column="Factor_6_Low_Level")
+    Factor_6_High = models.CharField(max_length=255, db_column="Factor_6_High_Level")
+    Speed_In_VC = models.CharField(max_length=255)
+    Speed_In_RPM = models.CharField(max_length=255)
+    Feed_In_mm_per_tooth = models.CharField(max_length=255, db_column="Feed_In_mm/tooth")
+    Feed_In_mm_per_revolution = models.CharField(max_length=255, db_column="Feed_In_mm/revolution")
+    Cycle_Time_In_Seconds = models.CharField(max_length=255)
+    Spindle_Load = models.CharField(max_length=255)
+    Tool_Life_In_Nos = models.CharField(max_length=255)
+    Tool_Life_In_Mtr = models.CharField(max_length=255)
+    CPC_In_Rs = models.CharField(max_length=255)
+    Diameter_CPK = models.CharField(max_length=255)
+    Surface_Finish_Cpk = models.CharField(max_length=255)
+    class Meta:
+        db_table = "doe_data"  # 👈 Explicitly set the table name
+        managed = False
+        
+    def __str__(self):
+        return f"{self.Tool_Diameter}"

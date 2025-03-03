@@ -7,7 +7,6 @@ from django.core.mail import send_mail
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
-
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
@@ -92,3 +91,4 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
         user.save()
 
         return {"message": "Password reset successful."}
+

@@ -49,10 +49,13 @@ INSTALLED_APPS = [
     
     'users',
     'searchdoe',
-    
+
     #Third party APIS
     'rest_framework',
     'rest_framework_simplejwt',
+    
+    'django_extensions',
+    'drf_yasg',
 
 ]
 
@@ -145,7 +148,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
+
 
 # Authentication 
 AUTHENTICATION_BACKENDS = [
