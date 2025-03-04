@@ -4,12 +4,14 @@ from rest_framework.views import APIView
 from .models import DoeData
 from .serializers import DoeDataSerializer
 
+
 class FilterDoeDataView(APIView):
     permission_classes = [IsAuthenticated]  # Only logged-in users can access
-    def get(self, request):
-        print("Received query params:", request.query_params)  # Debugging
-        tool_diameter = request.query_params.get('Tool_Diameter')
 
+    def post(self, request):  # Change to POST method
+        print("Received form data:", request.data)  # Debugging
+        tool_diameter = request.data.get('Tool_Diameter')  # Get data from form instead of query
+        print(tool_diameter)
         if not tool_diameter:
             return Response({"error": "Tool diameter parameter is required."}, status=400)
 
@@ -18,5 +20,5 @@ class FilterDoeDataView(APIView):
         if not data.exists():
             return Response({"message": "No data found for this tool diameter."}, status=404)
 
-        serializer = DoeDataSerializer(data, many=True)  # This will return all fields
+        serializer = DoeDataSerializer(data, many=True)  # Serialize data
         return Response(serializer.data)
