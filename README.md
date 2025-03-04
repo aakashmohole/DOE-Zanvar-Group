@@ -1,5 +1,4 @@
 
-```md
 # DOE Zanvar Group - Django Project Setup
 
 ## Prerequisites
