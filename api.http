@@ -12,8 +12,8 @@ Content-Type: application/json
 }
 
 ### 2️⃣ Get Filtered Doe Data (Logged-in User Required)
-GET http://127.0.0.1:8000/api/filter-doe/?Tool_Diameter=10
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwOTkxNjUzLCJpYXQiOjE3NDA5OTEzNTMsImp0aSI6ImVlMjU4NTcxMTI0MjRhYjdiOWE3YWE3NzU1ZmM3NDYyIiwidXNlcl9pZCI6M30.0_YA0GCfdKvci071yrFSDq0BnbwpjKfFG6DXtQnoIUY
+POST http://127.0.0.1:8000/api/filter-doe/?Tool_Diameter=80
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQxMTA2NTQ4LCJpYXQiOjE3NDExMDYyNDgsImp0aSI6IjU4NTFhMGI1ZmM3YTQwMGViMjVkMTJmYjljYWY3OGMxIiwidXNlcl9pZCI6M30.JOsNreGZsAgoTI5HfSF8HYnqbQ8V5yRIQYdpYwFO0SQ
 
 ### Test PUT request
 PUT http://localhost:8000/api/items/1
