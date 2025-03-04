@@ -32,7 +32,7 @@ pip install -r requirements.txt
 Create a `.env` file in the project's root directory and add the following variables:
 
 ```env
-DATABASE_URL=postgresql://<username><password>
+DATABASE_URL=postgresql://<username><password>/mydb
 
 
 EMAIL_HOST=smtp.gmail.com
