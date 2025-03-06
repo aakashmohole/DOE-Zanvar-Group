@@ -4,7 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
-from .serializers import RegisterSerializer, LoginSerializer, UserSerializer, PasswordResetSerializer, PasswordResetConfirmSerializer
+from .serializers import (RegisterSerializer, LoginSerializer, UserSerializer,
+                          PasswordResetSerializer, PasswordResetConfirmSerializer)
 from .models import CustomUser
 
 from rest_framework.generics import GenericAPIView
@@ -43,6 +44,15 @@ class LoginView(GenericAPIView):
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
+class LoginView(GenericAPIView):
+    serializer_class = LoginSerializer
+    permission_classes = [AllowAny]  # Allow anyone to log in
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.validated_data, status=status.HTTP_200_OK) 
+    
 class LogoutView(GenericAPIView):
     permission_classes = [IsAuthenticated]
 
