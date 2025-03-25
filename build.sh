@@ -10,6 +10,5 @@ python manage.py migrate
 # Collect static files (critical for Whitenoise)
 python manage.py collectstatic --noinput
 
-# Verify PORT is available (debugging)
-echo "--> Checking if port $PORT is available..."
-python -c "import socket; s = socket.socket(); s.bind(('', $PORT))" || echo "Port check failed"
+echo "ALLOWED_HOSTS: $ALLOWED_HOSTS"
+echo "PORT: $PORT"
