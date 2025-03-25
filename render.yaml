@@ -3,7 +3,7 @@ services:
     name: doeproject
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn doeproject.wsgi:application"
+    startCommand: "gunicorn doeproject.wsgi:application --bind 0.0.0.0:10000 --workers 4 --timeout 120"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -15,3 +15,11 @@ services:
         value: 4
       - key: DEBUG
         value: "False"
+      # Critical security settings for your deployment URL
+      - key: ALLOWED_HOSTS
+        value: "doe-hsag.onrender.com,localhost,127.0.0.1"
+      - key: CSRF_TRUSTED_ORIGINS
+        value: "https://doe-hsag.onrender.com,http://localhost:8000,http://127.0.0.1:8000"
+      # Required for static files
+      - key: DISABLE_COLLECTSTATIC
+        value: "0"
